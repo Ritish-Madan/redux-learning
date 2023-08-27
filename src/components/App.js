@@ -6,17 +6,16 @@ import { addMovies } from "../actions";
 
 class App extends React.Component {
   componentDidMount(){
-    console.log("Hey", this.props)
     const {store} = this.props;
 
     store.subscribe(() => {
-      console.log("Hey")
       this.forceUpdate();
     })
 
     store.dispatch(addMovies(data))
   }
   render(){
+    const {list} = this.props.store.getState(); // {list: [], favourites: []}
     return( 
       <div className="App">
         <Navbar />
@@ -26,7 +25,7 @@ class App extends React.Component {
             <div className="tab">Favourites</div>
           </div>
           <div className="list">
-            {data.map((movie, index) => (
+            {list.map((movie, index) => (
               <MovieCard movie={movie} key={`movie-${index}`}/>
             ))}
           </div>
