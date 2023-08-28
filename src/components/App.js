@@ -7,15 +7,25 @@ import { addMovies } from "../actions";
 class App extends React.Component {
   componentDidMount(){
     const {store} = this.props;
-
+    console.log("HERE")
     store.subscribe(() => {
       this.forceUpdate();
     })
 
     store.dispatch(addMovies(data))
   }
+
+  isFavourite = (movie) => {
+    const { favourites } = this.props.store.getState();
+    if(favourites.indexOf(movie) !== -1){
+      return true;
+    }
+    return false;
+  }
   render(){
-    const {list} = this.props.store.getState(); // {list: [], favourites: []}
+    console.log("RENDER")
+    console.log(this.props.store.getState())
+    const {list, favourites} = this.props.store.getState(); // {list: [], favourites: []}
     return( 
       <div className="App">
         <Navbar />
@@ -26,7 +36,12 @@ class App extends React.Component {
           </div>
           <div className="list">
             {list.map((movie, index) => (
-              <MovieCard movie={movie} key={`movie-${index}`}/>
+              <MovieCard 
+              movie={movie} 
+              key={`movie-${index}`} 
+              store={this.props.store}
+              isFavourite = {this.isFavourite(movie)}
+              />
             ))}
           </div>
         </div>
