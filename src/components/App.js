@@ -2,12 +2,11 @@ import React from "react";
 import {data} from "../data"
 import Navbar from "./Navbar";
 import MovieCard from "./MovieCard";
-import { addMovies } from "../actions";
+import { addMovies, showAllMovies, showFavourites } from "../actions";
 
 class App extends React.Component {
   componentDidMount(){
     const {store} = this.props;
-    console.log("HERE")
     store.subscribe(() => {
       this.forceUpdate();
     })
@@ -22,6 +21,14 @@ class App extends React.Component {
     }
     return false;
   }
+
+  handleMoviesListOnClick = () => {
+    store.dispatch(showAllMovies())
+  }
+
+  handleFavouritesOnClick = () => {
+    store.dispatch(showFavourites())
+  }
   render(){
     console.log("RENDER")
     console.log(this.props.store.getState())
@@ -31,18 +38,20 @@ class App extends React.Component {
         <Navbar />
         <div className="main">
           <div className="tabs">
-            <div className="tab">Movies</div>
-            <div className="tab">Favourites</div>
+            <div className="tab" onClick={this.handleMoviesListOnClick}>Movies</div>
+            <div className="tab" onClick={this.handleFavouritesOnClick}>Favourites</div>
           </div>
           <div className="list">
-            {list.map((movie, index) => (
+            {
+            list.map((movie, index) => (
               <MovieCard 
               movie={movie} 
               key={`movie-${index}`} 
               store={this.props.store}
               isFavourite = {this.isFavourite(movie)}
               />
-            ))}
+            ))
+            }
           </div>
         </div>
       </div>
