@@ -2,8 +2,8 @@
 export const ADD_MOVIES = "ADD_MOVIES";
 export const ADD_FAVOURITES = "ADD_FAVOURITES";
 export const REMOVE_FAVOURITES = "REMOVE_FAVOURITES";
-export const SHOW_MOVIES = "SHOW_MOVIES";
 export const SHOW_FAVOURITES = "SHOW_FAVOURITES";
+
 
 
 // ACTION CREATORS
@@ -28,17 +28,11 @@ export function removeFavourites(movie){
     }
 }
 
-export function showAllMovies(movie){
+export function setShowFavouritesAction(val) {
   return {
-      type: SHOW_MOVIES,
-      movie
-    }
+    type:SHOW_FAVOURITES,
+    val
+  }
 }
 
-export function showFavourites(movie){
-  return {
-      type: SHOW_FAVOURITES,
-      movie
-    }
-}
 
