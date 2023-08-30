@@ -1,37 +1,14 @@
-import { ADD_MOVIES, ADD_FAVOURITES, REMOVE_FAVOURITES, SHOW_FAVOURITES } from "../actions";
+import { combineReducers } from "redux";
+import {movies, initialMoviesState} from "./moviesReducer";
+import { initialSearchState, search } from "./searchReducer";
 
-const initialMoviesState = {
-    list:  [],
-    favourites: [],
-    showFavourites: false
+// Understanding how combineReducer Pick initialRootReducerState
+const initialRootReducerState = {
+    movies: initialMoviesState,
+    search: initialSearchState
 }
 
-export function movies(state = initialMoviesState, action){
-    switch(action.type){
-        case ADD_MOVIES:
-            return {
-                ...state,
-                list: action.movies
-            }
-        case ADD_FAVOURITES:
-            return{
-                ...state,
-                favourites: [action.movie, ...state.favourites]
-            }
-        case REMOVE_FAVOURITES:
-            const filteredArray = state.favourites.filter(
-                movie => movie.Title !== action.movie.Title
-            )
-            return {
-                ...state,
-                favourites: filteredArray
-            }         
-        case SHOW_FAVOURITES:
-            return {
-                ...state,
-                showFavourites: action.val
-            }
-        default:
-            return state;
-    }
-}
+export default combineReducers({
+    movies,
+    search
+})
