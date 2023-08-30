@@ -5,14 +5,11 @@ import App from "./components/App";
 import { applyMiddleware, createStore } from "redux";
 import rootReducer from "./reducers";
 
-const logger = function ({ dispatch, getState }) {
-  return function (next) {
-    return function (action) {
-      console.log("Hey MiddleWare Called ", action.type);
-      next(action);
-    };
-  };
-};
+
+const logger = ({ dispatch, getState }) => (next) => (action) =>{
+  console.log("Hey MiddleWare Called ", action.type);
+  next(action);
+}
 
 const store = createStore(rootReducer,   applyMiddleware(logger));
 const root = ReactDOM.createRoot(document.getElementById("root"));
