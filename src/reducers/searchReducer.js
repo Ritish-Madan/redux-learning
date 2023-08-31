@@ -1,7 +1,8 @@
-import { ADD_MOVIE_TO_LIST } from "../actions";
+import { ADD_MOVIE_TO_LIST, ADD_SEARCH_RESULT } from "../actions";
 
 export const initialSearchState = {
-    showSearchResult:  false
+    showSearchResults:  false,
+    result: {}
 }
 
 export function search(state = initialSearchState, action){
@@ -9,7 +10,13 @@ export function search(state = initialSearchState, action){
         case ADD_MOVIE_TO_LIST:
             return {
                 ...state,
-                showSearchResult: false
+                showSearchResults: false
+            }
+        case ADD_SEARCH_RESULT:
+            return {
+                ...state,
+                result: action.movie,
+                showSearchResults: true
             }
         default:
             return state;

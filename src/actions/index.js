@@ -6,7 +6,7 @@ export const ADD_FAVOURITES = "ADD_FAVOURITES";
 export const REMOVE_FAVOURITES = "REMOVE_FAVOURITES";
 export const SHOW_FAVOURITES = "SHOW_FAVOURITES";
 export const ADD_MOVIE_TO_LIST = 'ADD_MOVIE_TO_LIST';
-// const export 
+export const ADD_SEARCH_RESULT = "ADD_SEARCH_RESULT"
 
 
 
@@ -52,11 +52,17 @@ export function handleMovieSearch(movie){
     fetch(url)
     .then(response => response.json())
     .then(movie => {
-      console.log("movie", movie)
-
-      // dispatch an action
+      // Dispatching the action from the function.
+      dispatch(addSearchResult(movie))
     })
   } 
+}
+
+export function addSearchResult(movie){
+  return {
+    type: ADD_SEARCH_RESULT,
+    movie,
+  };
 }
 
 
