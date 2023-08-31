@@ -7,6 +7,11 @@ import rootReducer from "./reducers";
 
 
 const logger = ({ dispatch, getState }) => (next) => (action) =>{
+  if(typeof (action) === 'function'){
+    console.log("HERE in function middleware action")
+    action(dispatch)
+    return;
+  }
   console.log("Hey MiddleWare Called ", action.type);
   next(action);
 }
